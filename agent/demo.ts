@@ -1,0 +1,15 @@
+import { mkdtemp, copyFile } from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import { Storage } from './lib/storage.ts';
+import { execute } from './tools/index.ts';
+const root = await mkdtemp(path.join(os.tmpdir(), 'assistant-demo-'));
+const store = new Storage(root);
+await store.init();
+await copyFile(new URL('../examples/exemple-reseau.md', import.meta.url), path.join(root, 'inbox/exemple-reseau.md'));
+console.log('Démonstration déterministe des outils, sans modèle IA.');
+console.log(await execute(store, 'documents_list', { area: 'inbox' }));
+console.log(await execute(store, 'document_read', { area: 'inbox', name: 'exemple-reseau.md' }));
+console.log(await execute(store, 'report_create', { name: 'verification.md', content: '# Vérification\nSource : exemple-reseau.md, ligne 4.\nLe DNS associe des noms à des enregistrements.\n' }));
+console.log(await execute(store, 'document_read', { area: 'outbox', name: 'verification.md' }));
+console.log(await execute(store, 'compter_mots', { texte: 'Bonjour Riwane' }));
