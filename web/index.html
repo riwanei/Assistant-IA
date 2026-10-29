@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mon assistant · Conversation</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<main>
+<header><div><p class="eyebrow">L’ATELIER DE RIWANE</p><h1 id="name">Mon assistant</h1><p id="model">Connexion…</p></div><button id="reset" disabled>Nouvelle conversation</button></header>
+<section class="intro"><h2>On en parle ?</h2><p>Dicte ta question ou écris-la. Ton assistant te répond et peut lire sa réponse à voix haute.</p></section>
+<div id="messages" role="log" aria-label="Conversation" aria-live="polite"></div>
+<div class="status"><span class="dot"></span><span id="status" role="status">Connexion au serveur local…</span></div>
+<form id="chat"><label for="prompt">Ta question</label><textarea id="prompt" maxlength="8000" rows="3" placeholder="Explique-moi ce qu’est une API…" required></textarea>
+<div class="actions"><button id="mic" type="button" disabled>Activer le micro</button><button id="send" class="primary" disabled>Envoyer</button><button id="stop" type="button" disabled>Arrêter</button></div></form>
+<div class="preferences"><label><input type="checkbox" id="speak" checked> Lire les réponses à voix haute</label><label for="voice">Voix française <select id="voice"><option value="">Voix du système</option></select></label><button id="replay" disabled>Réécouter</button></div>
+<p class="notice" id="mic-notice">Le micro s’active uniquement à ton clic. La dictée est envoyée à l’assistant à la fin de ta phrase. Selon le navigateur, l’audio peut être envoyé à un service de transcription et nécessiter Internet. Le texte est traité par le fournisseur configuré (Ollama local par défaut).</p>
+<details><summary>Activité des outils</summary><pre id="activity"></pre></details>
+<section id="approval" hidden aria-labelledby="approval-title"><h2 id="approval-title">Enregistrer cette préférence ?</h2><pre id="approval-content"></pre><div class="actions"><button id="approve" class="primary">Oui, enregistrer</button><button id="deny">Non</button></div><p>Sans réponse après deux minutes, la demande est refusée.</p></section>
+<footer>Les cours restent dans <code>workspace/inbox</code>, les fiches dans <code>workspace/outbox</code>. L’historique de cet onglet n’est pas enregistré sur disque.</footer>
+</main>
+</body></html>

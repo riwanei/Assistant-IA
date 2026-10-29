@@ -48,3 +48,19 @@ relecture d'une fiche dans un répertoire de validation séparé sous `workspace
 Il échoue si le modèle est absent ; il ne remplace jamais le fournisseur par
 un simulacre. Une fois le parcours technique réussi, la qualité pédagogique
 et l'exactitude des citations doivent encore être examinées.
+
+## Mode vocal — 29 octobre 2026
+
+- TypeScript et 14 tests automatisés réussis, dont quatre tests HTTP de l’interface.
+- Conversation et historiques isolés, contrôle des origines, confirmation mémoire
+  liée à la bonne session et annulation à la déconnexion vérifiés avec fournisseur simulé.
+- Le microphone et les voix réels du PC de l’utilisateur ne sont pas accessibles
+  depuis l’environnement cloud. Ils restent à tester dans Chrome/Edge sur ce PC.
+- Le mode vocal ne prouve pas à lui seul qu’un modèle Ollama est installé :
+  exécuter `npm run test:model` pour valider le fournisseur réel.
+- Essai Chromium headless réussi : dictée simulée envoyée à la vraie API locale,
+  réponse vocale simulée, accord mémoire, refus du micro, remise à zéro, affichage
+  de contenu HTML comme texte et absence de débordement à 390 px. Le modèle et
+  les API audio étaient simulés : aucune reconnaissance ou qualité audio réelle
+  n’est revendiquée.
+- La commande réelle `npm run voice` démarre et sert la page HTTP avec succès.

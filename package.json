@@ -13,7 +13,8 @@
     "check": "npm run typecheck && npm test",
     "demo": "node agent/demo.ts",
     "prepare:workspace": "node scripts/prepare.ts",
-    "test:model": "node --env-file-if-exists=.env scripts/smoke-model.ts"
+    "test:model": "node --env-file-if-exists=.env scripts/smoke-model.ts",
+    "voice": "node --env-file-if-exists=.env agent/web.ts"
   },
   "dependencies": {
     "zod": "^4.0.0"

@@ -36,7 +36,7 @@ n'est pas une garantie d'idempotence entre plusieurs noms différents.
 - Chapitre 15 : identité configurable avec `ASSISTANT_NAME`.
 - Chapitres 21–22 : démo sans modèle et outil `compter_mots`.
 - Chapitres 24, 27 : tests et mission vérifiable sur un cours d'exemple.
-- Chapitre 20 : interface graphique, voix et services différés.
+- Chapitre 20 : interface vocale dans le navigateur ; transcription entièrement locale et services externes différés.
 
 ## Périmètre technique
 
@@ -45,3 +45,23 @@ pas être modifiés concurremment par un processus hostile. Le stockage n'est pa
 une sandbox système destinée à isoler plusieurs utilisateurs.
 Le modèle n'a aucun outil de réseau ni de commande système. Le seul service appelé
 par le programme est le fournisseur configuré par l'utilisateur.
+
+## Interface vocale
+
+`npm run voice` lance `agent/web.ts` et le serveur `agent/web-server.ts`.
+Le navigateur sert d’interface : reconnaissance `SpeechRecognition` en français,
+puis requête texte vers le même orchestrateur que le terminal. La réponse finale
+est lue par `speechSynthesis`, en petits segments, avec une voix française.
+Ces API dépendent du navigateur et des voix installées ; la dictée peut être distante.
+
+`web/app.js` affiche les messages comme du texte, sans interpréter de HTML du
+modèle. Le flux HTTP NDJSON transporte les étapes, demandes d’accord et résultats.
+La déconnexion annule la mission côté serveur ; une demande de mémoire expire
+au bout de deux minutes et est refusée par défaut. Le bouton Arrêter coupe aussi
+la synthèse et la dictée. Les effets déjà accomplis ne sont pas annulés.
+
+Le serveur vérifie Host et Origin, exige du JSON et un identifiant de session pour
+les actions. Il n’écoute que sur la boucle locale. Les sessions ont des historiques
+séparés et une seule mission simultanée chacune ; le stockage mono-utilisateur est
+commun. Aucun secret du fournisseur n’est renvoyé au navigateur. Ce serveur n’est
+pas conçu pour être exposé au réseau ou utilisé comme un service multi-utilisateur.

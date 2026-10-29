@@ -53,6 +53,51 @@ Le cours fourni dans cette conversation a été extrait dans le dossier privé
 `workspace/inbox/cours-creer-mon-assistant.txt` de la machine cloud. Il n'est pas
 inclus dans les fichiers destinés à Git.
 
+## Parler à l’assistant et entendre ses réponses
+
+Dans le dossier du projet, avec Ollama démarré et `qwen3:4b` installé :
+
+```powershell
+npm.cmd ci
+npm.cmd run prepare:workspace
+npm.cmd run voice
+```
+
+Ouvrir ensuite `http://127.0.0.1:3210` **dans Chrome ou Edge sur le même PC**.
+Laisser le terminal ouvert. Cliquer sur **Activer le micro**, autoriser le
+microphone, puis parler en français. La phrase reconnue s’affiche et est envoyée
+à la fin de la dictée. Le bouton **Terminer la dictée** permet aussi de l’envoyer.
+**Arrêter** annule la dictée ou la mission et coupe la lecture audio ; les fichiers
+déjà créés sont conservés. Le micro ne se réactive jamais tout seul.
+
+La case **Lire les réponses à voix haute** active la réponse parlée. Choisir une
+voix française installée sur le PC ; les voix locales sont proposées en premier.
+**Réécouter** relit la dernière réponse. Il est toujours possible d’écrire puis de
+cliquer sur **Envoyer** (ou Entrée ; Maj+Entrée insère un retour à la ligne).
+Les demandes de mémorisation affichent la note et deux boutons d’accord/refus.
+
+**Limite de confidentialité :** cette première version utilise la reconnaissance
+vocale du navigateur. Selon le navigateur, l’audio peut être transmis à un service
+externe et une connexion Internet peut être nécessaire. Certaines voix de synthèse
+sont aussi en ligne, et sont indiquées comme telles. Ollama traite le texte
+localement par défaut. Ce mode n’est pas une chaîne vocale garantie hors ligne ;
+pour cela, il faudrait ajouter un moteur local de transcription.
+
+Si la dictée est indisponible, utiliser Chrome/Edge et vérifier les autorisations
+micro du site et de Windows. Si aucune voix française n’est disponible, installer
+une voix française dans les paramètres de langue de Windows. Le texte reste
+utilisable sans ces fonctions. Le port se change via `ASSISTANT_WEB_PORT` dans
+`.env` si 3210 est occupé. Le serveur écoute uniquement sur `127.0.0.1`.
+
+Chaque onglet possède sa conversation ; les documents et préférences restent
+communs à cet assistant mono-utilisateur. Une session inactive peut expirer après
+30 minutes : recharger la page si demandé. Recharger la page ou **Nouvelle
+conversation** efface le contexte de cet onglet, pas les préférences sur disque.
+
+Si le projet a été téléchargé en ZIP, récupérer la nouvelle version de GitHub :
+les changements ne se téléchargent pas automatiquement dans VS Code. Conserver
+son ancien dossier `workspace` et son `.env`, qui contiennent ses données privées.
+
 ## Commandes du terminal
 
 | Commande | Effet |
@@ -115,5 +160,5 @@ jamais comme une autorisation d'ajouter de nouveaux pouvoirs à l'assistant.
 Les fichiers privés, `.env` et `node_modules` sont ignorés par Git. Les résultats
 sont affichés dans le terminal mais aucun journal de conversation n'est écrit.
 L'assistant est mono-utilisateur ; il ne constitue pas un service Web public.
-Les citations et synthèses du modèle doivent être vérifiées. La voix, MCP,
-l'interface graphique et les intégrations externes sont des évolutions futures.
+Les citations et synthèses du modèle doivent être vérifiées. La transcription entièrement locale, MCP et les intégrations externes restent
+des évolutions futures.
